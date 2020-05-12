@@ -6,7 +6,8 @@ interface IM7ShellAuthProviderProps {
 }
 
 export class M7ShellAuthProvider extends Component<IM7ShellAuthProviderProps> {
-    componentDidMount() {
+    constructor(props: IM7ShellAuthProviderProps) {
+        super(props);
         const broker = new AppMessageBroker();
         broker
             .subscribe<string>(
