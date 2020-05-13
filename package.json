@@ -1,41 +1,44 @@
 {
-  "version": "0.1.0",
-  "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "engines": {
-    "node": ">=10"
-  },
-  "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build"
-  },
-  "peerDependencies": {
-    "react": ">=16"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
+    "name": "@algont/m7-shell-broker",
+    "version": "0.1.4",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "files": [
+        "dist",
+        "src"
+    ],
+    "engines": {
+        "node": ">=10"
+    },
+    "scripts": {
+        "start": "tsdx watch",
+        "build": "tsdx build",
+        "test": "tsdx test --passWithNoTests",
+        "lint": "tsdx lint",
+        "prepare": "tsdx build"
+    },
+    "peerDependencies": {
+        "react": ">=16"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "tsdx lint"
+        }
+    },
+    "author": "Дмитрий Буренков",
+    "module": "dist/m7-shell-broker.esm.js",
+    "devDependencies": {
+        "@types/react": "^16.9.35",
+        "@types/react-dom": "^16.9.8",
+        "husky": "^4.2.5",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "tsdx": "^0.13.2",
+        "tslib": "^1.11.2",
+        "typescript": "^3.8.3"
+    },
+    "dependencies": {
+        "@types/uuid": "^7.0.3",
+        "uuid": "^8.0.0"
     }
-  },
-  "name": "m7-shell-broker",
-  "author": "Дмитрий Буренков",
-  "module": "dist/m7-shell-broker.esm.js",
-  "devDependencies": {
-    "@types/react": "^16.9.35",
-    "@types/react-dom": "^16.9.8",
-    "husky": "^4.2.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "tsdx": "^0.13.2",
-    "tslib": "^1.11.2",
-    "typescript": "^3.8.3"
-  }
 }

@@ -9,12 +9,11 @@ export class M7ShellAuthProvider extends Component<IM7ShellAuthProviderProps> {
     constructor(props: IM7ShellAuthProviderProps) {
         super(props);
         const broker = new AppMessageBroker();
-        broker
-            .subscribe<string>(
-                BrokerMessageType.UpdateAuthToken,
-                (token: string) => this.props.onRecieveToken(token),
-            )
-            .dispatch(BrokerMessageType.Connected);
+        broker.subscribe<string>(
+            BrokerMessageType.UpdateAuthToken,
+            (token: string) => this.props.onRecieveToken(token),
+        );
+        broker.dispatch(BrokerMessageType.Connected);
     }
     render() {
         return this.props.children;

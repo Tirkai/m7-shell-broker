@@ -1,8 +1,11 @@
+import { v4 } from "uuid";
+import { BaseMessageBroker, IBrokerListener } from "./";
 import { BrokerMessageType } from "./BrokerMessageType";
 
-export class ShellMessageBroker {
+export class ShellMessageBroker extends BaseMessageBroker {
     context: Window | null = null;
     constructor(context?: Window) {
+        super();
         if (context) {
             this.context = context;
         }
@@ -25,11 +28,21 @@ export class ShellMessageBroker {
     }
 
     subscribe<T>(type: BrokerMessageType | string, action: (data: T) => void) {
-        window.addEventListener(type, (event: Event) => {
+        const id = v4();
+        const eventListener = (event: Event) => {
             const customEvent = event as CustomEvent;
             const detail: T = customEvent.detail;
             action(detail);
-        });
-        return this;
+        };
+
+        const brokerListener: IBrokerListener = {
+            id,
+            type,
+            listener: eventListener,
+        };
+
+        window.addEventListener(type, eventListener);
+        this.listeners.push(brokerListener);
+        return brokerListener;
     }
 }
