@@ -6,16 +6,27 @@ interface IM7ShellAuthProviderProps {
 }
 
 export class M7ShellAuthProvider extends Component<IM7ShellAuthProviderProps> {
+    state = {
+        isReady: false,
+    };
+
     constructor(props: IM7ShellAuthProviderProps) {
         super(props);
         const broker = new AppMessageBroker();
-        broker.subscribe<string>(
-            BrokerMessageType.UpdateAuthToken,
-            (token: string) => this.props.onRecieveToken(token),
-        );
+
+        broker.subscribe(BrokerMessageType.UpdateAuthToken, (payload) => {
+            this.props.onRecieveToken(payload);
+            this.setState({
+                isReady: true,
+            });
+        });
         broker.dispatch(BrokerMessageType.Connected);
     }
     render() {
-        return this.props.children;
+        if (this.state.isReady) {
+            return this.props.children;
+        } else {
+            return "Wait Authorization..." + JSON.stringify(this.state.isReady);
+        }
     }
 }

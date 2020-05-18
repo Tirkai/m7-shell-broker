@@ -3,6 +3,7 @@ import { BaseMessageBroker } from "./BaseMessageBroker";
 import { BrokerMessageType } from "./BrokerMessageType";
 import { IBrokerListener } from "./IBrokerListener";
 import { M7ShellAuthProvider } from "./M7ShellAuthProvider";
+import { Message } from "./Message";
 import { ShellMessageBroker } from "./ShellMessageBroker";
 export {
     AppMessageBroker,
@@ -11,4 +12,5 @@ export {
     M7ShellAuthProvider,
     BaseMessageBroker,
     IBrokerListener,
+    Message,
 };

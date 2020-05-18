@@ -1,6 +1,4 @@
-import { v4 } from "uuid";
-import { BaseMessageBroker, IBrokerListener } from "./";
-import { BrokerMessageType } from "./BrokerMessageType";
+import { BaseMessageBroker, BrokerMessageType, Message } from "./";
 
 export class ShellMessageBroker extends BaseMessageBroker {
     context: Window | null = null;
@@ -16,33 +14,8 @@ export class ShellMessageBroker extends BaseMessageBroker {
         return this;
     }
 
-    dispatch<T>(type: BrokerMessageType | string, message?: T) {
-        console.log(`[ShellMessageBroker] Dispatch:${type}`, message);
-
-        this.context?.dispatchEvent(
-            new CustomEvent(type, {
-                detail: message,
-            }),
-        );
-        return this;
-    }
-
-    subscribe<T>(type: BrokerMessageType | string, action: (data: T) => void) {
-        const id = v4();
-        const eventListener = (event: Event) => {
-            const customEvent = event as CustomEvent;
-            const detail: T = customEvent.detail;
-            action(detail);
-        };
-
-        const brokerListener: IBrokerListener = {
-            id,
-            type,
-            listener: eventListener,
-        };
-
-        window.addEventListener(type, eventListener);
-        this.listeners.push(brokerListener);
-        return brokerListener;
+    dispatch<T>(type: BrokerMessageType, message: T) {
+        console.debug(`[Shell Dispatch]`, type, message);
+        this.context?.postMessage(new Message<T>(type, message), "*");
     }
 }
